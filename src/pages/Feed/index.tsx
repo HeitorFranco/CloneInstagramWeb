@@ -11,6 +11,12 @@ interface IPost {
   description: string;
   likes: number;
 
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+
   comments: Array<{
     id: number;
     content: string;
@@ -30,12 +36,7 @@ const Feed: React.FC = () => {
   const [page, setPage] = useState(1);
 
   const getPosts = async (pageNumber: number = page) => {
-    const res = await api.get(`posts?page=${pageNumber}&limit=2`, {
-      headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA0NjExMzQ3LCJleHAiOjE2MDQ2OTc3NDd9.pAD_1gNXOK2CvcsihKMazDB0unXzq2HMV3Kv_Ig0z00",
-      },
-    });
+    const res = await api.get(`posts?page=${pageNumber}&limit=2`);
     setPosts([...posts, ...res.data.posts]);
     setPage(page + 1);
   };
@@ -65,11 +66,13 @@ const Feed: React.FC = () => {
         {posts &&
           posts.map((post, index) => (
             <Post
+              id={post.id}
               key={index}
               description={post.description}
               likes={post.likes}
               urlImage={post.url}
               comments={post.comments}
+              user={post.user}
             />
           ))}
       </Content>

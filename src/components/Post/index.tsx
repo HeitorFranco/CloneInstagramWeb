@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 import {
   Container,
@@ -14,9 +14,18 @@ import {
   Comment,
 } from "./styles";
 
+import api from "../../services/api";
+
 interface IPost {
+  id: number;
   description: string;
   likes: number;
+
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
 
   comments: Array<{
     id: number;
@@ -31,16 +40,36 @@ interface IPost {
   urlImage: string;
 }
 
-const Post: React.FC<IPost> = ({ description, likes, urlImage, comments }) => {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+const Post: React.FC<IPost> = ({
+  id,
+  description,
+  likes,
+  urlImage,
+  comments,
+  user,
+}) => {
+  const [comment, setComment] = useState("");
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const res = await api.post("/comments", {
+      content: comment,
+      postId: id,
+    });
+
+    console.log(res);
+  };
   return (
     <Container>
       <Header>
         <ProfileData>
           <div>
             <Avatar src={urlImage} />
-            <span>pichauoficial</span>
+            <span>{user.name}</span>
           </div>
           <div>
             <MoreIcon />
@@ -64,9 +93,14 @@ const Post: React.FC<IPost> = ({ description, likes, urlImage, comments }) => {
           ))}
       </Comments>
 
-      <Comment>
-        <input placeholder="Adicione um comentário..." multiple></input>
-        <button>Publicar</button>
+      <Comment onSubmit={handleSubmit}>
+        <input
+          placeholder="Adicione um comentário..."
+          multiple
+          value={comment}
+          onChange={handleChange}
+        ></input>
+        <button disabled={!comment}>Publicar</button>
       </Comment>
     </Container>
   );

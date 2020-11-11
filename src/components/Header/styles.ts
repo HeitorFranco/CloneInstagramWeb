@@ -36,6 +36,9 @@ export const Logo = styled.img``;
 
 export const Center = styled.div`
   position: relative;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -77,9 +80,14 @@ export const SearchIcon = styled(AiOutlineSearch)`
 export const Right = styled.div`
   display: flex;
   align-items: center;
+
+  > a {
+    color: black;
+  }
 `;
 
 export const HomeIcon = styled(AiFillHome)`
+  display: block;
   width: 28px;
   height: 28px;
   margin-right: 8px;

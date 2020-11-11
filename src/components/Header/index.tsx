@@ -13,6 +13,8 @@ import {
   UserAvatar,
 } from "./styles";
 
+import { Link } from "react-router-dom";
+
 import LogoImage from "../../images/logo.png";
 
 const Header: React.FC = () => {
@@ -27,7 +29,9 @@ const Header: React.FC = () => {
           <SearchIcon />
         </Center>
         <Right>
-          <HomeIcon />
+          <Link to="/">
+            <HomeIcon />
+          </Link>
           <UserAvatar />
         </Right>
       </Wrapper>
