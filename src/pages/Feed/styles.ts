@@ -10,4 +10,8 @@ export const Content = styled.div`
   flex-direction: column;
   padding: 20px 0;
   align-items: center;
+
+  @media (max-width: 660px) {
+    padding: 0;
+  }
 `;

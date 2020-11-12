@@ -61,6 +61,10 @@ export const ImageContent = styled.img`
   max-height: 700px;
   min-height: 400px;
   object-fit: contain;
+
+  @media (max-width: 660px) {
+    min-height: 0px;
+  }
 `;
 
 export const Icons = styled.div`
@@ -93,6 +97,7 @@ export const Comments = styled.div`
 export const Comment = styled.form`
   min-height: 56px;
   border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
 
   display: flex;
   padding: 0px 20px;
