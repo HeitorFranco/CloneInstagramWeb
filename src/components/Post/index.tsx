@@ -25,6 +25,7 @@ interface IPost {
     id: number;
     name: string;
     email: string;
+    photo_url: string;
   };
 
   comments: Array<{
@@ -68,7 +69,7 @@ const Post: React.FC<IPost> = ({
       <Header>
         <ProfileData>
           <div>
-            <Avatar src={urlImage} />
+            <Avatar src={user.photo_url} />
             <span>{user.name}</span>
           </div>
           <div>
