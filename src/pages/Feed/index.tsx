@@ -15,6 +15,7 @@ interface IPost {
     id: number;
     name: string;
     email: string;
+    photo_url: string;
   };
 
   comments: Array<{
