@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://api-instagram-heitormaf.herokuapp.com/",
   headers: {
     Authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1MTMyMjIzLCJleHAiOjE2MDUyMTg2MjN9.nKWUH5f-JXPndHd_AgqNMWGNVm0QD4IwxbRDQmVXCu0",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1MjIwMzI0LCJleHAiOjE2MDUzMDY3MjR9.Z7NKlEDq8Okfpsir5XVVCoBP-48N_WIZISSzlQA3r1Q",
   },
 });
 
