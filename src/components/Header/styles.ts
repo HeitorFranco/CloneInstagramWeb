@@ -11,7 +11,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
 
-  position: sticky;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;

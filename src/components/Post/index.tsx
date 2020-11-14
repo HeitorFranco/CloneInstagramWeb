@@ -28,7 +28,7 @@ interface IPost {
     photo_url: string;
   };
 
-  comments: Array<{
+  comments?: Array<{
     id: number;
     content: string;
     user: {
@@ -57,12 +57,13 @@ const Post: React.FC<IPost> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log("teste");
     const res = await api.post("/comments", {
       content: comment,
       postId: id,
     });
 
-    console.log(res);
+    setComment("");
   };
   return (
     <Container>

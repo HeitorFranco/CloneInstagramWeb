@@ -90,6 +90,8 @@ export const Description = styled.div`
 export const Comments = styled.div`
   padding: 15px;
   flex: 1;
+  overflow-y: auto;
+  max-height: 150px;
   > div {
     margin-bottom: 10px;
   }

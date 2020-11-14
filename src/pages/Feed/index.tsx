@@ -4,7 +4,25 @@ import Post from "../../components/Post";
 
 import { Container, Content } from "./styles";
 
+import io from "socket.io-client";
+
 import api from "../../services/api";
+
+interface IComment {
+  id: number;
+  content: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+  post: {
+    id: number;
+    photo_path: string;
+    description: string;
+    likes: number;
+  };
+}
 
 interface IPost {
   id: number;
@@ -18,31 +36,47 @@ interface IPost {
     photo_url: string;
   };
 
-  comments: Array<{
-    id: number;
-    content: string;
-    user: {
-      id: number;
-      name: string;
-      email: string;
-    };
-  }>;
+  comments?: Array<IComment>;
 
   url: string;
 }
+
+const socket = io.connect(`${process.env.REACT_APP_API_URL}`, {
+  transports: ["websocket"],
+});
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [endReached, setEndReached] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(999);
 
   const getPosts = async (pageNumber: number = page) => {
-    const res = await api.get(`posts?page=${pageNumber}&limit=2`);
-    setPosts([...posts, ...res.data.posts]);
-    setPage(page + 1);
+    if (pageNumber * 2 <= totalPosts) {
+      const res = await api.get(`posts?page=${pageNumber}&limit=4`);
+      setTotalPosts(res.data.total);
+      setPosts([...posts, ...res.data.posts]);
+      setPage(page + 1);
+      setEndReached(false);
+    }
   };
 
   useEffect(() => {
+    socket.on("newPost", (data: IPost) => {
+      setPosts((prevPosts) => [...prevPosts, data]);
+    });
+    socket.on("newComment", (data: IComment) => {
+      setPosts((prevPosts) => {
+        return prevPosts.map((post) => {
+          if (post.id === data.post.id) {
+            post.comments?.push(data);
+            return post;
+          }
+          return post;
+        });
+      });
+    });
+
     window.addEventListener("scroll", () => {
       if (
         window.innerHeight + window.scrollY >=
@@ -54,10 +88,16 @@ const Feed: React.FC = () => {
       }
     });
     getPosts(1);
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
-    getPosts();
+    if (endReached) {
+      getPosts();
+    }
   }, [endReached]);
 
   return (

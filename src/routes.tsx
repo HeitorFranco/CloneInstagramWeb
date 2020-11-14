@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
+import Header from "./components/Header";
 
 const Routes: React.FC = () => {
   return (
