@@ -15,7 +15,7 @@ import {
 
 import { Link } from "react-router-dom";
 
-import LogoImage from "../../images/logo.png";
+import LogoImage from "../../images/logo.webp";
 
 const Header: React.FC = () => {
   return (

@@ -30,9 +30,12 @@ export const Wrapper = styled.div`
 
 export const Left = styled.div`
   margin-top: 11px;
+  width: 120px;
 `;
 
-export const Logo = styled.img``;
+export const Logo = styled.img`
+  width: 100%;
+`;
 
 export const Center = styled.div`
   position: relative;
