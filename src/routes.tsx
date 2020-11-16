@@ -1,15 +1,26 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { AuthContext } from "./contexts/AuthContext";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
-import Header from "./components/Header";
+import Register from "./pages/Register";
+
+const PrivateRoute = (props: any) => {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  return isAuthenticated ? <Route {...props} /> : <Redirect to="/cadastrar" />;
+};
 
 const Routes: React.FC = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Feed} />
-        <Route path="/login" component={Login} />
+        <PrivateRoute exact path="/" component={Feed} />
+        {!isAuthenticated && <Route path="/entrar" component={Login} />}
+        {!isAuthenticated && <Route path="/cadastrar" component={Register} />}
+
+        <Route component={() => <h1>404 Not Found</h1>} />
       </Switch>
     </BrowserRouter>
   );

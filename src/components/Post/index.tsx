@@ -61,7 +61,6 @@ const Post: React.FC<IPost> = ({
       content: comment,
       postId: id,
     });
-    console.log(res);
 
     setComment("");
   };

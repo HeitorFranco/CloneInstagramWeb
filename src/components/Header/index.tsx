@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import {
   Container,
@@ -16,8 +16,13 @@ import {
 import { Link } from "react-router-dom";
 
 import LogoImage from "../../images/logo.webp";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Header: React.FC = () => {
+  const { photo_url } = useContext(AuthContext);
+  useEffect(() => {
+    console.log("s");
+  });
   return (
     <Container>
       <Wrapper>
@@ -32,7 +37,7 @@ const Header: React.FC = () => {
           <Link to="/">
             <HomeIcon />
           </Link>
-          <UserAvatar />
+          <UserAvatar src={photo_url} />
         </Right>
       </Wrapper>
     </Container>

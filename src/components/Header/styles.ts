@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
 
 export const Left = styled.div`
   margin-top: 11px;
-  width: 120px;
+  width: 105px;
 `;
 
 export const Logo = styled.img`
@@ -98,10 +98,9 @@ export const HomeIcon = styled(AiFillHome)`
   cursor: pointer;
 `;
 
-export const UserAvatar = styled.div`
+export const UserAvatar = styled.img`
   width: 22px;
   height: 22px;
-  background-color: #dbdbdb;
 
   border-radius: 50%;
 

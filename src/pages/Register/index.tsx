@@ -3,7 +3,6 @@ import React, { useContext, useRef } from "react";
 import { SubmitHandler, FormHandles } from "@unform/core";
 
 import * as Yup from "yup";
-
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 import { login } from "../../auth/auth";
@@ -11,19 +10,22 @@ import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";
 
 interface FormData {
+  name: string;
   email: string;
   password: string;
 }
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
-
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
   const handleSubmit: SubmitHandler<FormData> = async (data, { reset }) => {
     try {
       const schema = Yup.object().shape({
+        name: Yup.string()
+          .min(2, "O nome precisa de no mínimo 2 caracteres")
+          .required("O nome é obrigatório"),
         email: Yup.string()
           .email("Digite um e-mail válido")
           .required("O e-mail é obrigatório"),
@@ -36,11 +38,10 @@ const Login: React.FC = () => {
         abortEarly: false,
       });
 
-      let { data: res } = await api.post("/auth", data);
-
+      const { data: res } = await api.post("/users", data);
       setIsAuthenticated(true);
-      login(res.token);
       setTimeout(() => history.push("/"), 200);
+      login(res.token);
 
       reset();
     } catch (err) {
@@ -55,7 +56,9 @@ const Login: React.FC = () => {
     }
   };
 
-  return <LoginAndRegister formRef={formRef} handleSubmit={handleSubmit} />;
+  return (
+    <LoginAndRegister formRef={formRef} handleSubmit={handleSubmit} register />
+  );
 };
 
-export default Login;
+export default Register;
