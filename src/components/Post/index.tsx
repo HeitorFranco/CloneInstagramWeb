@@ -57,12 +57,18 @@ const Post: React.FC<IPost> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const res = await api.post("/comments", {
+    await api.post("/comments", {
       content: comment,
       postId: id,
     });
 
     setComment("");
+  };
+
+  const handleLike = async () => {
+    await api.post("/likes", {
+      postId: id,
+    });
   };
 
   return (
@@ -80,7 +86,7 @@ const Post: React.FC<IPost> = ({
       </Header>
       <ImageContent src={urlImage} />
       <Icons>
-        <LikeIcon />
+        <LikeIcon onClick={handleLike} />
         <strong>{likes}</strong>likes
       </Icons>
       <Description>

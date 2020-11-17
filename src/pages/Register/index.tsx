@@ -5,7 +5,6 @@ import { SubmitHandler, FormHandles } from "@unform/core";
 import * as Yup from "yup";
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
-import { login } from "../../auth/auth";
 import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -16,7 +15,7 @@ interface FormData {
 }
 
 const Register: React.FC = () => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { handleRegister } = useContext(AuthContext);
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
@@ -38,10 +37,8 @@ const Register: React.FC = () => {
         abortEarly: false,
       });
 
-      const { data: res } = await api.post("/users", data);
-      setIsAuthenticated(true);
-      setTimeout(() => history.push("/"), 200);
-      login(res.token);
+      handleRegister(data);
+      history.push("/");
 
       reset();
     } catch (err) {

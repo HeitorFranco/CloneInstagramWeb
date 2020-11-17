@@ -20,9 +20,6 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const Header: React.FC = () => {
   const { photo_url } = useContext(AuthContext);
-  useEffect(() => {
-    console.log("s");
-  });
   return (
     <Container>
       <Wrapper>

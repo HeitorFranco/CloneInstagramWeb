@@ -6,7 +6,6 @@ import * as Yup from "yup";
 
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
-import { login } from "../../auth/auth";
 import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -16,7 +15,7 @@ interface FormData {
 }
 
 const Login: React.FC = () => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
 
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
@@ -35,12 +34,8 @@ const Login: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-
-      let { data: res } = await api.post("/auth", data);
-
-      setIsAuthenticated(true);
-      login(res.token);
-      setTimeout(() => history.push("/"), 200);
+      handleLogin(data);
+      history.push("/");
 
       reset();
     } catch (err) {

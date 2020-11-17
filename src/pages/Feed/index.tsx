@@ -62,6 +62,7 @@ const Feed: React.FC = () => {
   };
 
   useEffect(() => {
+    getPosts(1);
     socket.on("newPost", (data: IPost) => {
       setPosts((prevPosts) => [...prevPosts, data]);
     });
@@ -71,6 +72,27 @@ const Feed: React.FC = () => {
           if (post.id === data.post.id) {
             post.comments?.push(data);
             return post;
+          }
+          return post;
+        });
+      });
+    });
+    socket.on("deleteLike", (data: any) => {
+      setPosts((prevPosts) => {
+        return prevPosts.map((post) => {
+          if (post.id === data.id) {
+            post = data;
+          }
+          return post;
+        });
+      });
+    });
+
+    socket.on("newLike", (data: any) => {
+      setPosts((prevPosts) => {
+        return prevPosts.map((post) => {
+          if (post.id === data.id) {
+            post = data;
           }
           return post;
         });
@@ -87,7 +109,6 @@ const Feed: React.FC = () => {
         setEndReached(false);
       }
     });
-    getPosts(1);
 
     return () => {
       socket.disconnect();

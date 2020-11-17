@@ -20,7 +20,7 @@ const Routes: React.FC = () => {
         {!isAuthenticated && <Route path="/entrar" component={Login} />}
         {!isAuthenticated && <Route path="/cadastrar" component={Register} />}
 
-        <Route component={() => <h1>404 Not Found</h1>} />
+        <PrivateRoute component={() => <h1>404 Not Found</h1>} />
       </Switch>
     </BrowserRouter>
   );
