@@ -37,10 +37,12 @@ const Register: React.FC = () => {
         abortEarly: false,
       });
 
-      handleRegister(data);
-      history.push("/");
-
-      reset();
+      handleRegister(data).then((authorized) => {
+        if (authorized) {
+          history.push("/");
+        }
+        reset();
+      });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {} as any;

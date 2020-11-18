@@ -4,8 +4,8 @@ import api from "../services/api";
 interface AuthContextData {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  handleLogin({ email, password }: AuthData): Promise<void>;
-  handleRegister({ name, email, password }: AuthData): Promise<void>;
+  handleLogin({ email, password }: AuthData): Promise<boolean>;
+  handleRegister({ name, email, password }: AuthData): Promise<boolean>;
   handleLogoff(): void;
   id: number;
   name: string;
@@ -51,7 +51,6 @@ export default function AuthProvider({ children }: any) {
   }, []);
 
   async function handleLogin({ email, password }: AuthData) {
-    setLoading(true);
     try {
       const { data } = await api.post("auth", {
         email,
@@ -61,14 +60,17 @@ export default function AuthProvider({ children }: any) {
       api.defaults.headers.Authorization = data.token;
       setUser(data.user);
       setIsAuthenticated(true);
-    } catch {
+
+      return true;
+    } catch (err) {
+      alert(err.response.data.erro);
       setUser({} as UserContextData);
       setIsAuthenticated(false);
+
+      return false;
     }
-    setLoading(false);
   }
   async function handleRegister({ name, email, password }: AuthData) {
-    setLoading(true);
     try {
       const { data } = await api.post("users", {
         name,
@@ -79,11 +81,13 @@ export default function AuthProvider({ children }: any) {
       api.defaults.headers.Authorization = data.token;
       setIsAuthenticated(true);
       setUser(data.user);
-    } catch {
+      return true;
+    } catch (err) {
+      alert(err.response.data.erro);
       setIsAuthenticated(false);
       setUser({} as UserContextData);
+      return false;
     }
-    setLoading(false);
   }
 
   function handleLogoff() {

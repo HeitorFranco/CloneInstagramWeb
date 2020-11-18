@@ -34,10 +34,12 @@ const Login: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-      handleLogin(data);
-      history.push("/");
-
-      reset();
+      handleLogin(data).then((authorized) => {
+        if (authorized) {
+          history.push("/");
+        }
+        reset();
+      });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {} as any;
