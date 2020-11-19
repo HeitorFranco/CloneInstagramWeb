@@ -21,6 +21,7 @@ interface UserContextData {
 }
 
 interface AuthData {
+  username?: string;
   name?: string;
   email: string;
   password: string;
@@ -70,9 +71,10 @@ export default function AuthProvider({ children }: any) {
       return false;
     }
   }
-  async function handleRegister({ name, email, password }: AuthData) {
+  async function handleRegister({ username, name, email, password }: AuthData) {
     try {
       const { data } = await api.post("users", {
+        username,
         name,
         email,
         password,

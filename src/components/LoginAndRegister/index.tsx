@@ -27,6 +27,7 @@ const LoginAndRegister: React.FC<IProps> = ({
   handleSubmit,
   formRef,
 }) => {
+  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,16 +38,28 @@ const LoginAndRegister: React.FC<IProps> = ({
         <Logo src={LogoImage} alt="Instagram" />
 
         {register && (
-          <InputBlock hasValue={!!name}>
-            <Input
-              placeholder={"Nome"}
-              name="name"
-              value={name}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setName(e.target.value)
-              }
-            />
-          </InputBlock>
+          <>
+            <InputBlock hasValue={!!name}>
+              <Input
+                placeholder={"Nome Completo"}
+                name="name"
+                value={name}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
+              />
+            </InputBlock>
+            <InputBlock hasValue={!!username}>
+              <Input
+                placeholder={"Nome do usuário"}
+                name="username"
+                value={username}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setUsername(e.target.value)
+                }
+              />
+            </InputBlock>
+          </>
         )}
 
         <InputBlock hasValue={!!email}>
