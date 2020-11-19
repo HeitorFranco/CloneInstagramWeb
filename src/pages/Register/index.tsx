@@ -8,10 +8,9 @@ import { useHistory } from "react-router-dom";
 import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";
 
-interface FormData {
-  username: string;
-  name: string;
-  email: string;
+import IUser from "../../interfaces/User";
+
+interface FormData extends IUser {
   password: string;
 }
 

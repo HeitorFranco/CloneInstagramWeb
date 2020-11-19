@@ -16,36 +16,13 @@ import {
 
 import api from "../../services/api";
 
-interface IPost {
-  id: number;
-  description: string;
-  likes: number;
-
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    photo_url: string;
-  };
-
-  comments?: Array<{
-    id: number;
-    content: string;
-    user: {
-      id: number;
-      name: string;
-      email: string;
-    };
-  }>;
-
-  urlImage: string;
-}
+import IPost from "../../interfaces/Post";
 
 const Post: React.FC<IPost> = ({
   id,
   description,
   likes,
-  urlImage,
+  url,
   comments,
   user,
 }) => {
@@ -84,7 +61,7 @@ const Post: React.FC<IPost> = ({
           </div>
         </ProfileData>
       </Header>
-      <ImageContent src={urlImage} />
+      <ImageContent src={url} />
       <Icons>
         <LikeIcon onClick={handleLike} />
         <strong>{likes}</strong>likes

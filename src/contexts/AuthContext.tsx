@@ -1,36 +1,24 @@
 import React, { useState, useEffect, createContext } from "react";
 import api from "../services/api";
 
-interface AuthContextData {
+import IUser from "../interfaces/User";
+
+interface AuthContextData extends IUser {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogin({ email, password }: AuthData): Promise<boolean>;
   handleRegister({ name, email, password }: AuthData): Promise<boolean>;
   handleLogoff(): void;
-  id: number;
-  name: string;
-  email: string;
-  photo_url: string;
 }
 
-interface UserContextData {
-  id: number;
-  name: string;
-  email: string;
-  photo_url: string;
-}
-
-interface AuthData {
-  username?: string;
-  name?: string;
-  email: string;
+interface AuthData extends IUser {
   password: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
 
 export default function AuthProvider({ children }: any) {
-  const [user, setUser] = useState({} as UserContextData);
+  const [user, setUser] = useState({} as IUser);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +32,7 @@ export default function AuthProvider({ children }: any) {
           setUser(data);
           setIsAuthenticated(true);
         } catch {
-          setUser({} as UserContextData);
+          setUser({} as IUser);
         }
       }
       setLoading(false);
@@ -65,7 +53,7 @@ export default function AuthProvider({ children }: any) {
       return true;
     } catch (err) {
       alert(err.response.data.erro);
-      setUser({} as UserContextData);
+      setUser({} as IUser);
       setIsAuthenticated(false);
 
       return false;
@@ -87,7 +75,7 @@ export default function AuthProvider({ children }: any) {
     } catch (err) {
       alert(err.response.data.erro);
       setIsAuthenticated(false);
-      setUser({} as UserContextData);
+      setUser({} as IUser);
       return false;
     }
   }
@@ -95,7 +83,7 @@ export default function AuthProvider({ children }: any) {
   function handleLogoff() {
     localStorage.removeItem("token");
     api.defaults.headers.Authorization = undefined;
-    setUser({} as UserContextData);
+    setUser({} as IUser);
     setIsAuthenticated(false);
     setLoading(false);
   }

@@ -8,38 +8,8 @@ import io from "socket.io-client";
 
 import api from "../../services/api";
 
-interface IComment {
-  id: number;
-  content: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  };
-  post: {
-    id: number;
-    photo_path: string;
-    description: string;
-    likes: number;
-  };
-}
-
-interface IPost {
-  id: number;
-  description: string;
-  likes: number;
-
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    photo_url: string;
-  };
-
-  comments?: Array<IComment>;
-
-  url: string;
-}
+import IComment from "../../interfaces/Comment";
+import IPost from "../../interfaces/Post";
 
 const socket = io.connect(`${process.env.REACT_APP_API_URL}`, {
   transports: ["websocket"],
