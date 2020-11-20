@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   Container,
@@ -17,8 +17,10 @@ import { Link } from "react-router-dom";
 
 import LogoImage from "../../images/logo.webp";
 import { AuthContext } from "../../contexts/AuthContext";
+import Modal from "./Modal";
 
 const Header: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
   const { photo_url } = useContext(AuthContext);
   return (
     <Container>
@@ -34,7 +36,13 @@ const Header: React.FC = () => {
           <Link to="/">
             <HomeIcon />
           </Link>
-          <UserAvatar src={photo_url} />
+          <UserAvatar
+            src={photo_url}
+            onClick={() => {
+              setOpenModal(!openModal);
+            }}
+          />
+          {openModal && <Modal />}
         </Right>
       </Wrapper>
     </Container>

@@ -11,10 +11,6 @@ import api from "../../services/api";
 import IComment from "../../interfaces/Comment";
 import IPost from "../../interfaces/Post";
 
-const socket = io.connect(`${process.env.REACT_APP_API_URL}`, {
-  transports: ["websocket"],
-});
-
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [endReached, setEndReached] = useState(false);
@@ -32,6 +28,9 @@ const Feed: React.FC = () => {
   };
 
   useEffect(() => {
+    const socket = io.connect(`${process.env.REACT_APP_API_URL}`, {
+      transports: ["websocket"],
+    });
     getPosts(1);
     socket.on("newPost", (data: IPost) => {
       setPosts((prevPosts) => [...prevPosts, data]);
@@ -81,6 +80,16 @@ const Feed: React.FC = () => {
 
     return () => {
       socket.disconnect();
+      /*window.removeEventListener("scroll", () => {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.scrollHeight * 0.9
+        ) {
+          setEndReached(true);
+        } else {
+          setEndReached(false);
+        }
+      });*/
     };
   }, []);
 
