@@ -3,7 +3,6 @@ import React, { useContext, useRef } from "react";
 import { SubmitHandler, FormHandles } from "@unform/core";
 
 import * as Yup from "yup";
-import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";

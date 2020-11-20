@@ -102,7 +102,7 @@ const Feed: React.FC = () => {
               key={index}
               description={post.description}
               likes={post.likes}
-              urlImage={post.url}
+              url={post.url}
               comments={post.comments}
               user={post.user}
             />

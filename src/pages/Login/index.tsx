@@ -4,13 +4,13 @@ import { SubmitHandler, FormHandles } from "@unform/core";
 
 import * as Yup from "yup";
 
-import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 import LoginAndRegister from "../../components/LoginAndRegister";
 import { AuthContext } from "../../contexts/AuthContext";
 
-interface FormData {
-  email: string;
+import IUser from "../../interfaces/User";
+
+interface FormData extends IUser {
   password: string;
 }
 
