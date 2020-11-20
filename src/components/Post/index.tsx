@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useRef } from "react";
 
 import {
   Container,
@@ -25,7 +25,9 @@ const Post: React.FC<IPost> = ({
   url,
   comments,
   user,
+  myLike,
 }) => {
+  const [like, setLike] = useState(myLike);
   const [comment, setComment] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,9 +45,17 @@ const Post: React.FC<IPost> = ({
   };
 
   const handleLike = async () => {
-    await api.post("/likes", {
-      postId: id,
-    });
+    await api
+      .post("/likes", {
+        postId: id,
+      })
+      .then(({ data }) => {
+        if (data.myLike) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
+      });
   };
 
   return (
@@ -63,7 +73,7 @@ const Post: React.FC<IPost> = ({
       </Header>
       <ImageContent src={url} />
       <Icons>
-        <LikeIcon onClick={handleLike} />
+        <LikeIcon onClick={handleLike} like={like} />
         <strong>{likes}</strong>likes
       </Icons>
       <Description>

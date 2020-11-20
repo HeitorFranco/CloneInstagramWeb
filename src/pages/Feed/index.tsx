@@ -41,7 +41,6 @@ const Feed: React.FC = () => {
         return prevPosts.map((post) => {
           if (post.id === data.post.id) {
             post.comments?.push(data);
-            return post;
           }
           return post;
         });
@@ -105,6 +104,7 @@ const Feed: React.FC = () => {
               url={post.url}
               comments={post.comments}
               user={post.user}
+              myLike={post.myLike}
             />
           ))}
       </Content>

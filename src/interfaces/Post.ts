@@ -5,6 +5,7 @@ export default interface IPost {
   id: number;
   description: string;
   likes: number;
+  myLike: boolean;
 
   user: IUser;
 

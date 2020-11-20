@@ -1,5 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FiHeart } from "react-icons/fi";
+
+interface ILikeIcon {
+  like: boolean;
+}
 
 export const Container = styled.article`
   width: 616px;
@@ -76,11 +80,42 @@ export const Icons = styled.div`
   }
 `;
 
-export const LikeIcon = styled(FiHeart)`
+export const LikeIcon = styled(FiHeart)<ILikeIcon>`
   width: 30px;
   height: 30px;
   cursor: pointer;
   margin-right: 10px;
+
+  ${({ like }) => {
+    return like
+      ? css`
+          color: #ed4956;
+          fill: #ed4956;
+          animation: like 0.2s linear;
+        `
+      : css`
+          animation: deslike 0.2s linear;
+        `;
+  }}
+
+  @keyframes like {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+  @keyframes deslike {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
 `;
 
 export const Description = styled.div`
