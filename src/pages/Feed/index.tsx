@@ -1,17 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 
 import { Container, Content } from "./styles";
 
 import io from "socket.io-client";
-
 import api from "../../services/api";
+
+import { AuthContext } from "../../contexts/AuthContext";
 
 import IComment from "../../interfaces/Comment";
 import IPost from "../../interfaces/Post";
 
 const Feed: React.FC = () => {
+  const { id } = useContext(AuthContext);
   const [posts, setPosts] = useState<IPost[]>([]);
   const [endReached, setEndReached] = useState(false);
   const [page, setPage] = useState(1);
@@ -60,6 +62,9 @@ const Feed: React.FC = () => {
       setPosts((prevPosts) => {
         return prevPosts.map((post) => {
           if (post.id === data.id) {
+            if (id === data.myLikeId) {
+              data.myLike = true;
+            }
             post = data;
           }
           return post;
@@ -113,7 +118,7 @@ const Feed: React.FC = () => {
               url={post.url}
               comments={post.comments}
               user={post.user}
-              myLike={post.myLike}
+              myLike={post.myLike || false}
             />
           ))}
       </Content>
