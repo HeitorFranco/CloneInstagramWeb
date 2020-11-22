@@ -47,6 +47,7 @@ const LoginAndRegister: React.FC<IProps> = ({
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
                 }
+                autoComplete="off"
               />
             </InputBlock>
             <InputBlock hasValue={!!username}>
@@ -57,6 +58,7 @@ const LoginAndRegister: React.FC<IProps> = ({
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setUsername(e.target.value)
                 }
+                autoComplete="off"
               />
             </InputBlock>
           </>
@@ -71,6 +73,7 @@ const LoginAndRegister: React.FC<IProps> = ({
               setEmail(e.target.value)
             }
             autoSave="off"
+            autoComplete="off"
           />
         </InputBlock>
 
