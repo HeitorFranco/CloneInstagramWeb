@@ -12,4 +12,5 @@ export default interface IPost {
   comments?: Array<IComment>;
 
   url: string;
+  url_compressed: string;
 }
