@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 
 import {
   Container,
@@ -6,7 +6,6 @@ import {
   ProfileData,
   Avatar,
   MoreIcon,
-  ImageContent,
   Icons,
   LikeIcon,
   Description,
@@ -17,17 +16,23 @@ import {
 import api from "../../services/api";
 
 import IPost from "../../interfaces/Post";
+import LazyImage from "../LazyImage";
 
 const Post: React.FC<IPost> = ({
   id,
   description,
   likes,
   url,
+  url_compressed,
   comments,
   user,
   myLike,
 }) => {
   const [comment, setComment] = useState("");
+
+  useEffect(() => {
+    console.log(myLike);
+  }, [myLike]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -62,7 +67,7 @@ const Post: React.FC<IPost> = ({
           </div>
         </ProfileData>
       </Header>
-      <ImageContent src={url} />
+      <LazyImage source={url} smallSource={url_compressed} />
       <Icons>
         <LikeIcon onClick={handleLike} like={myLike} />
         <strong>{likes}</strong>likes
