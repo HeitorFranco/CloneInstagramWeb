@@ -51,6 +51,10 @@ const Feed: React.FC = () => {
       setPosts((prevPosts) => {
         return prevPosts.map((post) => {
           if (post.id === data.id) {
+            data.myLike = post.myLike;
+            if (id === data.myLikeId) {
+              data.myLike = false;
+            }
             post = data;
           }
           return post;
@@ -62,9 +66,11 @@ const Feed: React.FC = () => {
       setPosts((prevPosts) => {
         return prevPosts.map((post) => {
           if (post.id === data.id) {
+            data.myLike = post.myLike;
             if (id === data.myLikeId) {
               data.myLike = true;
             }
+
             post = data;
           }
           return post;
@@ -85,16 +91,6 @@ const Feed: React.FC = () => {
 
     return () => {
       socket.disconnect();
-      /*window.removeEventListener("scroll", () => {
-        if (
-          window.innerHeight + window.scrollY >=
-          document.body.scrollHeight * 0.9
-        ) {
-          setEndReached(true);
-        } else {
-          setEndReached(false);
-        }
-      });*/
     };
   }, []);
 
@@ -116,6 +112,7 @@ const Feed: React.FC = () => {
               description={post.description}
               likes={post.likes}
               url={post.url}
+              url_compressed={post.url_compressed}
               comments={post.comments}
               user={post.user}
               myLike={post.myLike || false}
