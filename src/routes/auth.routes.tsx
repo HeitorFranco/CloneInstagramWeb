@@ -7,8 +7,8 @@ const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/entrar" component={Login} />
-        <Route path="/cadastrar" component={Register} />
+        <Route exact path="/entrar" component={Login} />
+        <Route exact path="/cadastrar" component={Register} />
         <Redirect to="/cadastrar" />
       </Switch>
     </BrowserRouter>
