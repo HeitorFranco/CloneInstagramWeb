@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 
@@ -30,9 +30,7 @@ const Feed: React.FC = () => {
   };
 
   useEffect(() => {
-    const socket = io.connect(`${process.env.REACT_APP_API_URL}`, {
-      transports: ["websocket"],
-    });
+    const socket = io.connect(`${process.env.REACT_APP_API_URL}`);
     getPosts(1);
     socket.on("newPost", (data: IPost) => {
       setPosts((prevPosts) => [...prevPosts, data]);
@@ -41,8 +39,11 @@ const Feed: React.FC = () => {
       setPosts((prevPosts) => {
         return prevPosts.map((post) => {
           if (post.id === data.post.id) {
-            post.comments?.push(data);
+            if (!post.comments?.find((comment) => comment.id === data.id)) {
+              post.comments?.push(data);
+            }
           }
+
           return post;
         });
       });
