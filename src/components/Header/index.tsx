@@ -5,12 +5,14 @@ import {
   Wrapper,
   Left,
   Logo,
+  CreatePostButton,
   Center,
   SearchInput,
   SearchIcon,
   Right,
   HomeIcon,
   UserAvatar,
+  CloseButton,
 } from "./styles";
 
 import { Link } from "react-router-dom";
@@ -18,15 +20,24 @@ import { Link } from "react-router-dom";
 import LogoImage from "../../images/logo.webp";
 import { AuthContext } from "../../contexts/AuthContext";
 import Modal from "./Modal";
+import PostModal from "./PostModal";
 
 const Header: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openPostModal, setOpenPostModal] = useState(false);
   const { photo_url } = useContext(AuthContext);
   return (
     <Container>
       <Wrapper>
         <Left>
           <Logo src={LogoImage} />
+          <CreatePostButton
+            onClick={() => {
+              setOpenPostModal(!openPostModal);
+            }}
+          >
+            Criar Postagem
+          </CreatePostButton>
         </Left>
         <Center>
           <SearchInput placeholder="Pesquisar" />
@@ -43,6 +54,16 @@ const Header: React.FC = () => {
             }}
           />
           {openModal && <Modal />}
+          {openPostModal && (
+            <>
+              <PostModal setOpenPostModal={setOpenPostModal} />
+              <CloseButton
+                onClick={() => {
+                  setOpenPostModal(false);
+                }}
+              />
+            </>
+          )}
         </Right>
       </Wrapper>
     </Container>
