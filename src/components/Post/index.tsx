@@ -70,7 +70,7 @@ const Post: React.FC<IPost> = ({
       <LazyImage source={url} smallSource={url_compressed} />
       <Icons>
         <LikeIcon onClick={handleLike} like={myLike} />
-        <strong>{likes}</strong>likes
+        <strong>{likes}</strong>like{likes > 1 && "s"}
       </Icons>
       <Description>
         <span>{description}</span>
