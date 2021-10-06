@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { AiOutlineSearch, AiFillHome } from "react-icons/ai";
-import { RiCloseFill } from "react-icons/ri";
 
 export const Container = styled.div`
   width: 100%;
@@ -59,7 +58,7 @@ export const Center = styled.div`
   position: relative;
   align-self: center;
   justify-self: flex-end;
-  @media (max-width: 650px) {
+  @media (max-width: 660px) {
     display: none;
   }
 `;
@@ -125,19 +124,6 @@ export const UserAvatar = styled.img`
   height: 22px;
 
   border-radius: 50%;
-
-  cursor: pointer;
-`;
-
-export const CloseButton = styled(RiCloseFill)`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-
-  width: 35px;
-  height: 35px;
-
-  color: #fff;
 
   cursor: pointer;
 `;

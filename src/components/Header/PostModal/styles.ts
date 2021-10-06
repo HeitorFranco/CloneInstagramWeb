@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Form } from "@unform/web";
+import { RiCloseFill } from "react-icons/ri";
 
 interface IInputBlock {
   hasValue: boolean;
@@ -27,10 +28,13 @@ export const Container = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   padding: 60px 0;
+
   @media (max-width: 450px) {
-    border: none;
+    width: 100vw;
+    height: 100vh;
   }
 `;
 
@@ -51,8 +55,63 @@ export const InputBlock = styled.div<IInputBlock>`
     border: 1px solid #dbdbdb;
     border-radius: 2px;
 
+    margin-top: 20px;
+
     &:focus {
       border: 1px solid #a8a8a8;
     }
+  }
+`;
+
+export const InputFileLabel = styled.label`
+  width: 270px;
+  height: 36px;
+
+  margin-top: 25px;
+  margin-bottom: 20px;
+
+  border: 2px solid #0095f6;
+  outline: none;
+  border-radius: 4px;
+
+  color: #0095f6;
+  font-weight: 500;
+  font-size: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  input {
+    display: none;
+  }
+`;
+
+export const ButtonSubmit = styled.button`
+  background-color: #0095f6;
+  border: none;
+  color: #fff;
+  padding: 10px 35px;
+
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export const CloseButton = styled(RiCloseFill)`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  width: 35px;
+  height: 35px;
+
+  color: #fff;
+
+  cursor: pointer;
+
+  @media (max-width: 450px) {
+    color: #000;
   }
 `;

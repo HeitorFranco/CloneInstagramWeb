@@ -3,8 +3,16 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Input from "../../Input";
 import * as Yup from "yup";
 
-import { Wrapper, Container, InputBlock } from "./styles";
 import api from "../../../services/api";
+
+import {
+  Wrapper,
+  Container,
+  InputBlock,
+  InputFileLabel,
+  ButtonSubmit,
+  CloseButton,
+} from "./styles";
 
 interface PostModalProps {
   setOpenPostModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,8 +69,14 @@ const PostModal: React.FC<PostModalProps> = ({ setOpenPostModal }) => {
   }, [image]);
   return (
     <Wrapper>
+      <CloseButton
+        onClick={() => {
+          setOpenPostModal(false);
+        }}
+      />
       <Container ref={formRef} onSubmit={handleSubmit}>
         <h1>Criar Postagem</h1>
+
         <InputBlock hasValue={!!description}>
           <Input
             placeholder={"Descrição"}
@@ -74,8 +88,19 @@ const PostModal: React.FC<PostModalProps> = ({ setOpenPostModal }) => {
             autoComplete="off"
           />
         </InputBlock>
-        <input type="file" onChange={handleImage} />
-        <button>Submit</button>
+
+        <InputFileLabel>
+          <input
+            accept=".png, .jpg, .jpeg, "
+            type="file"
+            onChange={handleImage}
+          />
+          {image
+            ? `Arquivo selecionado: ${image.name}`
+            : "Clique aqui para selecionar uma imagem"}
+        </InputFileLabel>
+
+        <ButtonSubmit>Enviar</ButtonSubmit>
       </Container>
     </Wrapper>
   );

@@ -12,7 +12,6 @@ import {
   Right,
   HomeIcon,
   UserAvatar,
-  CloseButton,
 } from "./styles";
 
 import { Link } from "react-router-dom";
@@ -57,11 +56,6 @@ const Header: React.FC = () => {
           {openPostModal && (
             <>
               <PostModal setOpenPostModal={setOpenPostModal} />
-              <CloseButton
-                onClick={() => {
-                  setOpenPostModal(false);
-                }}
-              />
             </>
           )}
         </Right>
