@@ -23,11 +23,11 @@ const Register: React.FC = () => {
       const schema = Yup.object().shape({
         name: Yup.string()
           .min(2, "O nome precisa de no mínimo 2 caracteres")
-          .max(20, "O nome precisa de no máximo 20 caracteres")
+          .max(50, "O nome precisa de no máximo 50 caracteres")
           .required("O nome é obrigatório"),
         username: Yup.string()
           .min(2, "O nome do usuário precisa de no mínimo 2 caracteres")
-          .max(20, "O nome do usuário precisa de no máximo 20 caracteres")
+          .max(30, "O nome do usuário precisa de no máximo 30 caracteres")
           .required("O nome do usuário é obrigatório")
           .strict(true)
           .lowercase("O nome não pode ter letras maiúsculas"),
