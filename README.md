@@ -15,7 +15,7 @@
 <img alt="whatsapp" src=".github/ScreenShot(4).png" width="100%">
 </p>
 
-## 🛠 Tecnologias
+## ✨ Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
